@@ -22,7 +22,7 @@ const cuisines = [
         // location: 'Patan',
         image: require('../assets/dhido.jpg'),
         location: ('Basantapur'),
-        details: `A crispy and sweet munching treat, Sel Roti is a marriage between a doughnut and a bagel. One of the most relished Nepalese food item, Sel Roti is made during the festivals of Tihar and Dashain religious festivals. The circular rice flour bread is deep fried which gives it a crunchy texture from the outside and soft and doughy from the inside. It is usually had during the breakfast with the dippings made with yogurt and along with vegetables.`
+        details: `Dhido is a traditional Nepali dish, commonly prepared in the hilly and mountainous regions. Made from buckwheat or millet flour, the unique cooking process involves gradually mixing the flour with water until it forms a thick, sticky dough. Cooked on a circular wooden board, known as a "piron," dhido is shaped into a flat disc and served with accompaniments like gundruk (fermented greens), pickles, ghee, and dal (lentil soup). Eating dhido is a hands-on experience, with individuals using their fingers to tear off small portions, shaping them into balls, and dipping them into the side dishes. This traditional food not only serves as a staple in Nepali households but also holds cultural significance, often associated with festivals and communal celebrations.`
     },
     {
         id: '4',
