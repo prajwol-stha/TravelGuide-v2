@@ -99,11 +99,11 @@ const FinalDetailsScreen = ({ navigation, route }) => {
 				<ActionCard>
 				<TouchableOpacity style={styles.group}>
 						<IconM name='map-marker-distance' color={COLORS.primary} size={30} />
-						<Text style={styles.actionText}>{distance?.distanceText || "distance"}</Text>
+						<Text style={styles.actionText}>{distance?.distanceText || "Distance"}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group}>
 						<Icon name='time-to-leave' color={COLORS.primary} size={30} />
-						<Text style={styles.actionText}>{distance?.durationText || "duration "}</Text>
+						<Text style={styles.actionText}>{distance?.durationText || "Duration "}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group}>
 						{latitude && longitude && <Icon name='map' color={COLORS.primary} size={30} style={styles.icon} onPress={() => navigation.navigate('Maps', { location: { latitude, longitude }, name: className })} />}

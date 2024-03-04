@@ -11,7 +11,6 @@ const Card = ({ activity }) => {
 
   const handlePress = () => {
 
-    
     // navigation.navigate('ActivitiesDetails', { activity });
     navigation.navigate('MainStack', { screen: 'ActivitiesDetails', params:{activity} })
   };

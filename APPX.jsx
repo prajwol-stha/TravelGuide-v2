@@ -107,6 +107,7 @@ const MainStack = () => {
 			<stack.Screen name='SemiFinalDetailsScreen' component={SemiFinalDetailsScreen} options={{ headerShown: false }} />
 			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 			<stack.Screen name='ActivitiesDetails' component={ActivitiesDetails} options={{ headerTitle: "Activity" }} />
+			<stack.Screen name='ActivitiesScreen' component={ActivitiesScreen} options={{ headerTitle: "Activity" }} />
 			<stack.Screen name='Maps' component={GoogleSearch} options={{ headerTitle: "Maps" }} />
 		</stack.Navigator>
 	)
@@ -138,8 +139,8 @@ const MainApp = () => {
 							}} />
 						<Drawer.Screen name='Bookmarks' component={RenderBookmarks}
 							options={{ drawerIcon: () => (<Icon name='bookmark' size={24} color={COLORS.placeholder} />) }} />
-						<Drawer.Screen name={t('Language')} component={LanguageSelectionScreen}
-							options={{ drawerIcon: () => (<Icon name='earth' size={24} color={COLORS.placeholder} />) }} />
+						{/* <Drawer.Screen name={t('Language')} component={LanguageSelectionScreen}
+							options={{ drawerIcon: () => (<Icon name='earth' size={24} color={COLORS.placeholder} />) }} /> */}
 						<Drawer.Screen name='Contribute' component={ContributeScreen}
 							options={{ drawerIcon: () => (<Icon name='hand-heart-outline' size={24} color={COLORS.placeholder} />) }} />
 						<Drawer.Screen name='User Contributions' component={UserContributions}

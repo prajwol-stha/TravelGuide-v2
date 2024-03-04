@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import COLORS from '../../constants/colors';
+import { ScrollView } from 'react-native-virtualized-view';
 
 const ActivitiesDetails = () => {
   const route = useRoute();
@@ -16,11 +17,13 @@ const ActivitiesDetails = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={activity.image} style={styles.image} />
-      <View style={styles.detailsContainer}>
-        <Text style={styles.name}>{activity.name}</Text>
-        <Text style={styles.details}>{activity.details}</Text>
-      </View>
+      <ScrollView style={styles.contentContainer}>
+        <Image source={activity.image} style={styles.image} />
+        <View style={styles.detailsContainer}>
+          <Text style={styles.name}>{activity.name}</Text>
+          <Text style={styles.details}>{activity.details}</Text>
+        </View>
+      </ScrollView>
       <TouchableOpacity style={styles.button} onPress={handleOpenMap}>
         <Text style={styles.buttonText}>Open In Maps</Text>
       </TouchableOpacity>
@@ -34,6 +37,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  contentContainer: {
+    flex: 1,
+    width: '100%',
+  },
   image: {
     width: '100%',
     height: 300,
@@ -42,8 +49,6 @@ const styles = StyleSheet.create({
   detailsContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     padding: 16,
-    width: '100%',
-    flex: 1,
   },
   name: {
     fontSize: 24,
@@ -54,14 +59,16 @@ const styles = StyleSheet.create({
   details: {
     fontSize: 18,
     color: 'black',
+    textAlign: 'justify', // Add this line to justify the text
   },
   button: {
-    position: 'absolute',
-    bottom: 30,
-    right: 16,
     backgroundColor: COLORS.primary,
-    padding: 16,
-    borderRadius: 10,
+    padding: 10,
+    marginHorizontal: '10%',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginTop: 10,
+    width: '80%',
   },
   buttonText: {
     color: 'white',

@@ -90,8 +90,8 @@ const activities = [
          the Garden's treasures from many different vantage points.`,
          coordinates:{
           latlng:{
-            latitude:123,
-            longitude:345
+            latitude:27.714287518260555, 
+            longitude:85.31453629003454,
           }
         },
       },
@@ -114,13 +114,11 @@ const activities = [
     image: require('../assets/archery.jpg'),
     details:
       `Archery in Nepal has its roots in hunting, with Nepalese archers using bamboo bows and arrows. 
-      However, the sport slipped into rural life and became less popular over time. Today, sporting archery is making a comeback in Nepal,
-       with several archery clubs established in the Kathmandu valley  . The sport requires patience and dedication to master, 
-       and it challenges aiming skills.`,
+      However, the sport slipped into rural life and became less popular over time. Today, sporting archery is making a comeback in Nepal,with several archery clubs established in the Kathmandu valley  . The sport requires patience and dedication to master, and it challenges aiming skills.`,
       coordinates:{
           latlng:{
-              latitude:27.7399759,
-              longitude:85.2293993
+              latitude:27.67981810574994,
+              longitude: 85.30703352300863,
           }
       }
   },

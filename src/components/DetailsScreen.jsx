@@ -219,13 +219,13 @@ const SemiFinalDetailsScreen = ({navigation, route}) => {
               size={30}
             />
             <Text style={styles.actionText}>
-              {distance?.distanceText || 'distance'}
+              {distance?.distanceText || 'Distance'}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.group}>
             <Icon name="time-to-leave" color={COLORS.primary} size={30} />
             <Text style={styles.actionText}>
-              {distance?.durationText || 'duration '}
+              {distance?.durationText || 'Duration '}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.group}>
@@ -359,14 +359,16 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   btn: {
-    backgroundColor: COLORS.primary, // Use your preferred color
-    padding: 10,
-    marginTop: 10,
-    marginHorizontal: 60,
-    alignItems: 'center',
-    borderRadius: 5,
-    marginBottom: 10,
+	backgroundColor: COLORS.primary,
+	padding: 10,
+	marginTop: 10,
+	marginHorizontal: '10%',
+	alignItems: 'center',
+	borderRadius: 5,
+	marginBottom: 10,
+	width: '80%',
   },
+  
   btnTxt: {
     color: COLORS.white,
   },
@@ -413,13 +415,14 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 50,
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.WHITE,
     position: 'relative',
   },
   content: {
     // marginTop: 300,
-    paddingTop: 20,
-    top: -20,
+    // paddingTop: -30,
+    // top: -20,
+
     paddingHorizontal: 20,
   },
   ScrollView: {
