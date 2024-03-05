@@ -2,7 +2,7 @@ import { CLUSTER_NAME_WH, COLLECTION_NAME_WH, DATABASE_ENDPOINT_WH,MONGODB_API_K
 
 
 const fetchWH = async () => {
-    // console.log("inside fetch")
+    console.log("inside fetch")
 	let response
 	try {
 

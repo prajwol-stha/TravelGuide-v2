@@ -16,7 +16,7 @@ import calculateDistanceDuration from '../ComponentsPrajwol/modules/calculateDis
 
 
 const FinalDetailsScreen = ({ navigation, route }) => {
-	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description,  TicketPrice } = route.params;
+	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description } = route.params;
 	const [distance, setDistance] = useState(null);
 	const [myLocation, setMyLocation] = useState({})
 	const [distanceDuration, setDistanceDuration] = useState({})
@@ -24,22 +24,22 @@ const FinalDetailsScreen = ({ navigation, route }) => {
 
 	useEffect(() => {
 		async function updateMyLocation() {
-			const { latitude: mlat, longitude:mlng } = await getmyLocation()
-			// setMyLocation({ latitude, longitude })
-		// }
+			const { latitude, longitude } = await getmyLocation()
+			setMyLocation({ latitude, longitude })
+		}
 
-		// async function updateDistanceDuration() {
-			const { distanceText, durationText } = await calculateDistanceDuration({ latitude: mlat, longitude:mlng }, { latitude, longitude })
+		async function updateDistanceDuration() {
+			const { distanceText, durationText } = await calculateDistanceDuration({ myLocation }, { latitude, longitude })
 			// distanceDuration.distance = distanceText
 			// distanceDuration.drivingDuration = durationText
 
-			const { durationText: walkingDuration } = await calculateDistanceDuration({ latitude: mlat, longitude:mlng }, { latitude, longitude }, "walking")
+			const { durationText: walkingDuration } = await calculateDistanceDuration({ myLocation }, { latitude, longitude }, "walking")
 			// distanceDuration.walkingDuration = walkingDuration
-			setDistanceDuration({ distance: distanceText, drivingDuration: durationText, walkingDuration })
-			}
+			setDistanceDuration({ distance, drivingDuration: durationText, walkingDuration })
+		}
 
 		updateMyLocation();
-		// updateDistanceDuration();
+		updateDistanceDuration();
 	}, [])
 
 	// async function addToBookmark() {
@@ -101,7 +101,6 @@ const FinalDetailsScreen = ({ navigation, route }) => {
 						{constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
 						{constructionDate && <Text style={styles.detailText}>Constructed in: {constructionDate}</Text>}
 						{Ticket && <Text style={styles.detailText}>Ticket Required: {Ticket}</Text>}
-						{TicketPrice && <Text style={styles.detailText}>Ticket Price: {TicketPrice}</Text>}
 					</TouchableOpacity>
 
 					{/* <Text style={styles.detailText}>Distance : {distance?.distanceText} </Text> */}

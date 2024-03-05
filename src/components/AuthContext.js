@@ -9,8 +9,8 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    // const [lang, setLang] = useState('en')
-    // const { i18n } = useTranslation()
+    const [lang, setLang] = useState('en')
+    const { i18n } = useTranslation()
 
     useEffect(() => {
         async function checkAccessToken() {
@@ -34,27 +34,27 @@ export const AuthProvider = ({ children }) => {
     };
 
 
-    // useEffect(() => {
-    //     async function loadLanguage() {
-    //         const lang = await getLanguage()
-    //         if (lang) {
-    //             i18n.changeLanguage(lang)
-    //         }
-    //     }
-    //     loadLanguage();
-    // }, [lang])
+    useEffect(() => {
+        async function loadLanguage() {
+            const lang = await getLanguage()
+            if (lang) {
+                i18n.changeLanguage(lang)
+            }
+        }
+        loadLanguage();
+    }, [lang])
 
 
-    // async function changeLanguage(language) {
-    //     if (language) {
-    //         await setLanguage(language)
-    //         setLang(language)
-    //     }
-    // }
-    // async function getCurrentLanguage() {
-    //     const current = await getLanguage();
-    //     return current
-    // }
+    async function changeLanguage(language) {
+        if (language) {
+            await setLanguage(language)
+            setLang(language)
+        }
+    }
+    async function getCurrentLanguage() {
+        const current = await getLanguage();
+        return current
+    }
 
     if (loading) {
         // Display loading indicator or screen until the authentication status is determined
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout}}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout, changeLanguage, getCurrentLanguage }}>
             {children}
         </AuthContext.Provider>
     );

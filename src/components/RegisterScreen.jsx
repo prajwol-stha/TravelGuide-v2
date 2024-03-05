@@ -137,7 +137,7 @@ const RegisterScreen = ({ navigation }) => {
             <View style={styles.collection}>
                 <Text style={styles.headingText}>Username</Text>
                 <TextInput
-                    placeholder='A unique username just for you'
+                    placeholder='A unique username just for '
                     placeholderTextColor={COLORS.placeholder}
                     style={[styles.inputField, errors?.userName && { borderColor: COLORS.error }]}
                     value={userName}

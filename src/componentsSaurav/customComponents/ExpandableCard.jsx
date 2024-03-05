@@ -12,7 +12,7 @@ const ExpandableCard = ({ title, details }) => {
                 <Text style={styles.title}>{title}</Text>
                 <Icon name={expanded ? "expand-less" : 'expand-more'} color={COLORS.placeholder} size={30} />
             </View>
-            {expanded && <Text style={styles.details}>{details.replace("\\n", "\n\n\t\t")}</Text>}
+            {expanded && <Text style={styles.details}>{details}</Text>}
         </TouchableOpacity>
     );
 };

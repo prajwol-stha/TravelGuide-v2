@@ -5,8 +5,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import getLocalImage from '../../../componentsSaurav/getImage/getLocalImage';
 import addUserContribution from '../../../componentsSaurav/apiCalls/addUserContribution';
 import { ActivityIndicator } from 'react-native';
-import SmallButton from '../../../componentsSaurav/customComponents/SmallButton';
-import { getmyLocation } from '../../modules/getMyLocation';
 
 
 
@@ -22,16 +20,14 @@ export default function ContributeScreen() {
 	const [imageFile, setImageFile] = useState();
 	const [errors, setErrors] = useState({})
 	const [loading, setLoading] = useState(false)
-	const [locationLoading, setLocationLoading] = useState(false)
 
 	const validateForm = () => {
-		const mapRegex = /^\d+\.\d+,\d+\.\d+$/
 		let errors = {}
 		if (!name) errors.name = "Name is required"
 		if (!location) errors.location = "Location is required"
 		if (!imageUri) errors.image = "Image is required"
 		if (hasTicket && !ticketPrice) errors.ticketPrice = "Ticket Price is required"
-		if (!mapRegex.test(location)) errors.location = "Location must be formatted as: 27.6704, 85.3274"
+
 		setErrors(errors)
 
 		return Object.keys(errors).length === 0; //true if no error messages
@@ -93,13 +89,6 @@ export default function ContributeScreen() {
 		setTicketPrice(numericText);
 	};
 
-	async function addCurrentLocation() {
-		setLocationLoading(true)
-		const { latitude, longitude } = await getmyLocation();
-		setLocation(`${latitude},${longitude}`)
-		setLocationLoading(false)
-	}
-
 	return (
 		<ScrollView style={styles.container}>
 
@@ -158,15 +147,8 @@ export default function ContributeScreen() {
 					placeholderTextColor={COLORS.placeholder}
 					style={[styles.inputField, errors?.location && { borderColor: COLORS.error }]}
 					value={location}
-					onChangeText={text => setLocation(text.replace(/[^.,\d]/g, ""))}
+					onChangeText={text => setLocation(text)}
 				/>
-				<View style={{ position: "absolute", right: -5, top: 20 }}>
-					{locationLoading ?
-						<SmallButton title={<ActivityIndicator/>}/>
-						:
-						<SmallButton  iconName={"google-maps"} onPress={addCurrentLocation} />
-					}
-				</View>
 			</View>
 
 			{errors?.location && <Text style={[styles.headingText, styles.errorText]}>{errors.location}</Text>}
@@ -240,7 +222,7 @@ export default function ContributeScreen() {
 					<View >
 						{loading ?
 							<View style={styles.btnContent}>
-								<Text style={styles.btnTxt}>Adding&nbsp;&nbsp;</Text>
+								<Text style={styles.btnTxt}>Adding..</Text>
 								<ActivityIndicator color={COLORS.white} />
 							</View>
 							: <Text style={styles.btnTxt}>Contribute</Text>
@@ -257,7 +239,7 @@ export default function ContributeScreen() {
 const styles = StyleSheet.create({
 	container: {
 		paddingHorizontal: 15,
-		backgroundColor: COLORS.background,
+		backgroundColor: COLORS.background
 	},
 	collection: {
 		marginTop: 20
@@ -328,8 +310,7 @@ const styles = StyleSheet.create({
 		color: COLORS.error
 	},
 	btnContent: {
-		flexDirection: 'row',
-		marginBottom: 20
+		flexDirection: 'row'
 	}
 })
 

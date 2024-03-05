@@ -2,7 +2,7 @@ import { CLUSTER_NAME_USER, COLLECTION_NAME_USER, DATABASE_ENDPOINT_USER, DATABA
 
 
 const fetchUserContribution = async () => {
-
+    console.log("inside fetch")
 	let response
 	try {
 

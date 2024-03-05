@@ -35,35 +35,35 @@ import Iconx from 'react-native-vector-icons/MaterialCommunityIcons'
 const data = [
   { id: '0', title: 'Akash Bhairab Temple' },
   { id: '1', title: 'Bhagwati Temple' },
-  // { id: '2', title: 'Bhuvaneshwor Mahadev Temple' },
-  { id: '2', title: 'Chasin Dega Temple' },
-  { id: '3', title: 'Degu Talle Temple' },
-  { id: '4', title: 'Dhansa Temple' },
-  { id: '5', title: 'Gaddi Baithak' },
-  { id: '6', title: 'Gopinath Temple' },
-  { id: '7', title: 'Gorakhnath Shrine' },
-  { id: '8', title: 'Hanuman Temple' },
-  { id: '9', title: 'Jagannath Temple' },
-  { id: '10', title: 'Kageshwor Mahadev Temple' },
-  { id: '11', title: 'Kasthamandap' },
-  { id: '12', title: 'Kotilingeshwar Mahadev Temple' },
-  { id: '13', title: 'Kumari Ghar' },
-  { id: '14', title: 'Lalitpur Bhawan' },
-  { id: '15', title: 'Mahadev temple' },
-  { id: '16', title: 'Mahadev Chaitya' },
-  { id: '17', title: 'Mahendreshwor Mahadev Temple' },
-  { id: '18', title: 'Maju Dega' },
-  { id: '19', title: 'Nau Talle Durbar' },
-  { id: '20', title: 'Newroad Juddha Salik' },
-  { id: '21', title: 'Shivalinga Temple' },
-  { id: '22', title: 'Shree Kal Bhairab' },
-  { id: '23', title: 'Shree Mahalaxmi Temple' },
-  { id: '24', title: 'Silyan Sata House' },
-  { id: '25', title: 'Statue At Entrance' },
-  { id: '26', title: 'Swet Bhairab' },
-  { id: '27', title: 'Taga Gan Bell' },
-  { id: '28', title: 'Taleju Bhawani Temple' },
-  { id: '29', title: 'Trrailokya Mohan Narayan Temple' },
+  { id: '2', title: 'Bhuvaneshwor Mahadev Temple' },
+  { id: '3', title: 'Chasin Dega Temple' },
+  { id: '4', title: 'Degu Talle Temple' },
+  { id: '5', title: 'Dhansa Temple' },
+  { id: '6', title: 'Gaddi Baithak' },
+  { id: '7', title: 'Gopinath Temple' },
+  { id: '8', title: 'Gorakhnath Shrine' },
+  { id: '9', title: 'Hanuman Temple' },
+  { id: '10', title: 'Jagannath Temple' },
+  { id: '11', title: 'Kageshwor Mahadev Temple' },
+  { id: '12', title: 'Kasthamandap' },
+  { id: '13', title: 'Kotilingeshwar Mahadev Temple' },
+  { id: '14', title: 'Kumari Ghar' },
+  { id: '15', title: 'Lalitpur Bhawan' },
+  { id: '16', title: 'Mahadev temple' },
+  { id: '17', title: 'Mahadev Chaitya' },
+  { id: '18', title: 'Mahendreshwor Mahadev Temple' },
+  { id: '19', title: 'Maju Dega' },
+  { id: '20', title: 'Nau Talle Durbar' },
+  { id: '21', title: 'Newroad Juddha Salik' },
+  { id: '22', title: 'Shivalinga Temple' },
+  { id: '23', title: 'Shree Kal Bhairab' },
+  { id: '24', title: 'Shree Mahalaxmi Temple' },
+  { id: '25', title: 'Silyan Sata House' },
+  { id: '26', title: 'Statue At Entrance' },
+  { id: '27', title: 'Swet Bhairab' },
+  { id: '28', title: 'Taga Gan Bell' },
+  { id: '29', title: 'Taleju Bhawani Temple' },
+  { id: '30', title: 'Trrailokya Mohan Narayan Temple' },
 ];
 
 
@@ -105,6 +105,7 @@ const HomeScreen = ({navigation}) => {
       return null;
     }
   };
+  // const classNumber=12;
   const [classNumber,setclassNumber]=useState('');
   
   const [datam, setDatam] = useState(null);
@@ -129,7 +130,7 @@ const HomeScreen = ({navigation}) => {
 
 		return (
 			() => {
-				// console.log('clear use effect');
+				console.log('clear use effect');
 				setDatam(null);
 				// setRenderSkeleton(true)
 			}
@@ -143,7 +144,7 @@ const HomeScreen = ({navigation}) => {
     async function fetchData(){
       const response=await fetchDetailsFromDb(parseInt(item.id))
       console.log(response)
-      navigation.navigate('DetailsScreen',{...response})
+      navigation.navigate('DetectionDetail',{...response})
     }
     await fetchData();
   };
@@ -158,7 +159,7 @@ const HomeScreen = ({navigation}) => {
 
   const handleCategoryPress = (iconName) => {
     console.log(`Pressed category ${iconName}`);
-    openMap({ query: iconName == "wc" ? "Toilet": iconName, provider: 'google' });
+    openMap({ query: iconName, provider: 'google' });
   };
   const ListCategories = () => {
     return (
@@ -271,13 +272,13 @@ const HomeScreen = ({navigation}) => {
     </TouchableOpacity>
   );
 
-  // const {t,i18n}=useTranslation();
-  //   function handlePress(code){
-  //       if (i18n.language !== code) {
-  //           i18n.changeLanguage(code);
-  //       }
-  //       console.log(code);
-  //   }
+  const {t,i18n}=useTranslation();
+    function handlePress(code){
+        if (i18n.language !== code) {
+            i18n.changeLanguage(code);
+        }
+        console.log(code);
+    }
 
 
 
@@ -293,7 +294,7 @@ const HomeScreen = ({navigation}) => {
             paddingHorizontal: 20,
           }}>
           <View style={{flex: 1}}>
-            <Text style={style.headerTitle}>Discover the Best</Text>
+            <Text style={style.headerTitle}>{t('Discover')} the Best</Text>
             <Text style={style.headerTitle}>Sites to Travel</Text>
             <View style={style.inputContainer}>
 
@@ -303,7 +304,6 @@ const HomeScreen = ({navigation}) => {
                     onChangeText={searchFilterFunction}
                     value={searchQuery}
                     placeholderTextColor={COLORS.placeholder}
-                    style={{color: 'black'}}
                   />
                   {renderFilteredData()}
                   
