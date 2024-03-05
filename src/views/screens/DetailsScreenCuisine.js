@@ -75,6 +75,16 @@ const DetailsScreenCuisine = ({navigation, route}) => {
               }}>
               {place.foodName}
             </Text>}
+           {/* {place.price && <Text
+              style={{
+                marginLeft: -90,
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: COLORS.primary,
+              }}>
+              {'\n'}
+              Price: {place.price}
+            </Text>} */}
           </View>
           {/* <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20,color: COLORS.dark}}>
             About the heritage

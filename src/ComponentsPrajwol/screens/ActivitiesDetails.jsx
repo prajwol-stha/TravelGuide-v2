@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   details: {
     fontSize: 18,
     color: 'black',
-    textAlign: 'justify', // Add this line to justify the text
+    textAlign: 'justify', 
   },
   button: {
     backgroundColor: COLORS.primary,

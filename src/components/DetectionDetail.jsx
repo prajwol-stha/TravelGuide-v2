@@ -1,114 +1,81 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground, StatusBar, Pressable, TouchableOpacity, Touchable } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import COLORS from '../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Geolocation from 'react-native-geolocation-service';
-import { PermissionsAndroid } from 'react-native';
 
-import { MAPS_API_KEY } from '../componentsSaurav/config';
 import ExpandableCard from '../componentsSaurav/customComponents/ExpandableCard';
 import CustomHeader from '../componentsSaurav/customComponents/CustomHeader';
 import ActionCard from '../componentsSaurav/customComponents/ActionCard';
+import { getmyLocation } from '../ComponentsPrajwol/modules/getMyLocation';
+import calculateDistanceDuration from '../ComponentsPrajwol/modules/calculateDistanceDuration';
+
 
 
 const FinalDetailsScreen = ({ navigation, route }) => {
-	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description } = route.params;
+	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description,  TicketPrice } = route.params;
 	const [distance, setDistance] = useState(null);
+	const [myLocation, setMyLocation] = useState({})
+	const [distanceDuration, setDistanceDuration] = useState({})
+
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const granted = await PermissionsAndroid.request(
-					PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-					{
-						title: 'Location Permission',
-						message: 'Give location permission',
-						buttonNeutral: 'Ask Me Later',
-						buttonNegative: 'Cancel',
-						buttonPositive: 'OK',
-					},
-				);
+		async function updateMyLocation() {
+			const { latitude: mlat, longitude:mlng } = await getmyLocation()
+			// setMyLocation({ latitude, longitude })
+		// }
 
-				if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-					console.log('Location permission granted');
+		// async function updateDistanceDuration() {
+			const { distanceText, durationText } = await calculateDistanceDuration({ latitude: mlat, longitude:mlng }, { latitude, longitude })
+			// distanceDuration.distance = distanceText
+			// distanceDuration.drivingDuration = durationText
 
-					Geolocation.getCurrentPosition(
-						(position) => {
-							const origin = { lat: position.coords.latitude, lng: position.coords.longitude };
-							const destination = { lat: latitude, lng: longitude };
-							const apiKey = MAPS_API_KEY;
-
-							// console.log("this is geolib");
-							// const dist=getDistance(
-							//     { lat: position.coords.latitude, lng: position.coords.longitude },
-							//     { lat:latitude,lng:longitude }
-							// )
-							// console.log(dist/1000)
-
-							const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin.lat},${origin.lng}&destinations=${destination.lat},${destination.lng}&key=${apiKey}`;
-
-							fetch(url)
-								.then((response) => response.json())
-								.then((data) => {
-									console.log('Data from API:', data);
-									const distanceText = data.rows[0].elements[0].distance.text;
-									const durationText = data.rows[0].elements[0].duration.text;
-									console.log("******************")
-									console.log(distanceText);
-									console.log(durationText);
-
-									setDistance({ distanceText, durationText });
-								})
-								.catch((error) => console.error('Error fetching distance matrix:', error));
-						},
-						(error) => {
-							console.log('Error getting location', error.code, error.message);
-						},
-						{ enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-					);
-				} else {
-					console.log('Location permission denied');
-				}
-			} catch (err) {
-				console.warn(err);
+			const { durationText: walkingDuration } = await calculateDistanceDuration({ latitude: mlat, longitude:mlng }, { latitude, longitude }, "walking")
+			// distanceDuration.walkingDuration = walkingDuration
+			setDistanceDuration({ distance: distanceText, drivingDuration: durationText, walkingDuration })
 			}
 
-		};
+		updateMyLocation();
+		// updateDistanceDuration();
+	}, [])
 
-		fetchData();
-	}, [latitude, longitude]);
-
-
-
+	// async function addToBookmark() {
+	// 	dispatch(addToPlan({}))
+	// }
 
 	return (
 		<>
 			<CustomHeader title={className} />
 			<View style={styles.container}>
-				{/* <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.2)" /> */}
-				{/* {imageLink && <ImageBackground source={{ uri: imageLink }} style={styles.image} >
-            </ImageBackground>} */}
 				{imageLink || imageUrl ? (
 					<Image source={{ uri: imageLink || imageUrl }} style={styles.image} />
 
 				) : null}
 
 				<ActionCard>
-				<TouchableOpacity style={styles.group}>
-						<IconM name='map-marker-distance' color={COLORS.primary} size={30} />
-						<Text style={styles.actionText}>{distance?.distanceText || "Distance"}</Text>
+					<TouchableOpacity style={styles.group}>
+						<IconM name='map-marker-distance' color={COLORS.primary} size={30} style={styles.actionIcon} />
+						<Text style={styles.actionText}>{distanceDuration?.distance || "Distance"}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group}>
-						<Icon name='time-to-leave' color={COLORS.primary} size={30} />
-						<Text style={styles.actionText}>{distance?.durationText || "Duration "}</Text>
+						<Icon name='directions-bus' color={COLORS.primary} size={30} style={styles.actionIcon} />
+						<Text style={styles.actionText}>{distanceDuration?.drivingDuration || "Drive"}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group}>
-						{latitude && longitude && <Icon name='map' color={COLORS.primary} size={30} style={styles.icon} onPress={() => navigation.navigate('Maps', { location: { latitude, longitude }, name: className })} />}
-						<Text style={styles.actionText}>View on map</Text>
+						<Icon name='directions-walk' color={COLORS.primary} size={30} style={styles.actionIcon} />
+						<Text style={styles.actionText}>{distanceDuration?.walkingDuration || "Walk"}</Text>
 					</TouchableOpacity>
+					<TouchableOpacity style={styles.group} onPress={() => navigation.navigate('Maps', { location: { latitude, longitude }, name: className })} >
+						{latitude && longitude && <Icon name='map' color={COLORS.primary} size={30} style={styles.actionIcon} />}
+						<Text style={styles.actionText}>View map</Text>
+					</TouchableOpacity>
+					{/* <TouchableOpacity style={styles.group} onP>
+						<Icon name='bookmark' color={COLORS.primary} size={30} />
+						<Text style={styles.actionText}>plan</Text>
+					</TouchableOpacity> */}
 				</ActionCard>
 
 				{/* <View style={styles.headingView}>
@@ -134,6 +101,7 @@ const FinalDetailsScreen = ({ navigation, route }) => {
 						{constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
 						{constructionDate && <Text style={styles.detailText}>Constructed in: {constructionDate}</Text>}
 						{Ticket && <Text style={styles.detailText}>Ticket Required: {Ticket}</Text>}
+						{TicketPrice && <Text style={styles.detailText}>Ticket Price: {TicketPrice}</Text>}
 					</TouchableOpacity>
 
 					{/* <Text style={styles.detailText}>Distance : {distance?.distanceText} </Text> */}
@@ -216,6 +184,12 @@ const styles = StyleSheet.create({
 	},
 	group: {
 		alignItems: 'center'
+	},
+	actionIcon: {
+		backgroundColor: COLORS.secondary,
+		padding: 5,
+		borderRadius: 100,
+
 	}
 });
 

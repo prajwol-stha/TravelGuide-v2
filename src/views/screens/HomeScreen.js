@@ -158,7 +158,8 @@ const HomeScreen = ({navigation}) => {
 
   const handleCategoryPress = (iconName) => {
     console.log(`Pressed category ${iconName}`);
-    openMap({ query: iconName, provider: 'google' });
+    // openMap({ query: iconName, provider: 'google' });
+    openMap({ query: iconName == "wc" ? "Toilet": iconName, provider: 'google' });
   };
   const ListCategories = () => {
     return (
@@ -509,3 +510,4 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
+
