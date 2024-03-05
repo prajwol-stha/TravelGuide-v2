@@ -17,7 +17,7 @@ import calculateDistanceDuration from '../ComponentsPrajwol/modules/calculateDis
 
 
 const SemiFinalDetailsScreen = ({ navigation, route }) => {
-	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description, ticketPrice, ticketRequired, price } = route.params;
+	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description, ticketPrice, ticketRequired, price, image } = route.params;
 
 
 	const [distanceDuration, setDistanceDuration] = useState({})
@@ -77,6 +77,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 					<Image source={{ uri: imageLink || imageUrl }} style={styles.image} />
 
 				) : null}
+				{image && <Image source={image} style={styles.image} />}
 
 				<ActionCard>
 					<TouchableOpacity style={styles.group}>
