@@ -61,11 +61,12 @@ const HomeScreen = ({ navigation }) => {
 							color: COLORS.white,
 							fontSize: 22,
 							fontWeight: 'bold',
-							backgroundColor: "rgba(0,0,0,0.5)",
+							backgroundColor: "rgba(0,0,0,0.3)",
 							textAlign: 'center',
 							position:'absolute',
 							padding: 5,
-							right:0,
+							// left:0,
+							borderBottomRightRadius: 8
 						}}>
 						{place.className}
 					</Text>
@@ -347,8 +348,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: 'white',
 		width: '100%',
-		backgroundColor: "rgba(0,0,0,0.5)",
-		backgroundColor: "rgba(0,0,0,0.5)",
+		backgroundColor: "rgba(0,0,0,0.2)",
 	},
 });
 
