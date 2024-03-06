@@ -10,17 +10,17 @@ app.on("error", error => console.log(`Error occurred on creating express app: ${
 
 // middleware to set nepali time
 app.use((req, res, next) => {
-    // Set the timezone to Nepali  
-    moment.tz.setDefault('Asia\Kathmandu');
-    // Proceed to the next middleware  
-    next();
+  // Set the timezone to Nepali  
+  moment.tz.setDefault('Asia\Kathmandu');
+  // Proceed to the next middleware  
+  next();
 });
 
 
 //handle CORS access
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true,
+  origin: process.env.CORS_ORIGIN,
+  credentials: true,
 }))
 
 
@@ -43,10 +43,10 @@ app.use("/api/v1/auth", authRoutes)
 import { verifyAccessToken } from "./middlewares/auth.middleware.js";
 import secretRouter from "./routes/protected.routes.js";
 
-app.use(verifyAccessToken)
-app.use("/api/v1/protected", secretRouter)
+//app.use(verifyAccessToken)
+app.use("/api/v1/protected", verifyAccessToken, secretRouter)
 
-import userContributionRouter from "./routes/userContribution.route.js"; 
+import userContributionRouter from "./routes/userContribution.route.js";
 app.use("/api/v1/contribution", userContributionRouter)
 
 
