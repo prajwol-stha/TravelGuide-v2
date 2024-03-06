@@ -60,7 +60,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 			setDistanceDuration({ distance: distanceText, drivingDuration: durationText, walkingDuration })
 		}
 
-		updateMyLocation();
+		if (latitude&&longitude) updateMyLocation();
 
 	}, [])
 
@@ -79,7 +79,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 				) : null}
 				{image && <Image source={image} style={styles.image} />}
 
-				<ActionCard>
+				{latitude && longitude && <ActionCard>
 					<TouchableOpacity style={styles.group}>
 						<IconM name='map-marker-distance' color={COLORS.primary} size={30} style={styles.actionIcon} />
 						<Text style={styles.actionText}>{distanceDuration?.distance || "Distance"}</Text>
@@ -106,9 +106,9 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 					</TouchableOpacity>
 
 				</ActionCard>
-
-				<ScrollView style={styles.content}>
-					{(architectureStyle || constructedBy || constructionDate || Ticket || ticketRequired || ticketPrice || price) && <TouchableOpacity style={styles.topCard}>
+				}
+				<ScrollView style={[styles.content, !latitude && {marginTop: 30}]}>
+					{(architectureStyle || constructedBy || constructionDate || Ticket || ticketRequired || ticketPrice || price) && <TouchableOpacity style={styles.topCard} activeOpacity={0.5}>
 						{architectureStyle && <Text style={styles.detailText}>Architecture Style: {architectureStyle}</Text>}
 						{/* {constructedBy && <ExpandableCard title={"constructed By"} details={constructedBy} />} */}
 						{constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
 	},
 	content: {
 		// marginTop: 300,
-		paddingTop: 20,
+		// paddingTop: 20,
 		top: -20,
 		paddingHorizontal: 20
 	},
@@ -244,7 +244,6 @@ const styles = StyleSheet.create({
 	image: {
 		height: 300,
 		width: '100%',
-
 	},
 	backBtn: {
 		position: 'absolute',

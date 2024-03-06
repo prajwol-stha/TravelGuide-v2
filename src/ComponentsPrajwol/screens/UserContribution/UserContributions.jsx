@@ -34,15 +34,21 @@ const UserContributions = () => {
 
   const navigateToDetails = (item) => {
     const { location } = item;
-    const [latitude, longitude] = location.split(',').map(coord => coord.trim());
+    if (location) {
+      const [latitude, longitude] = location.split(',').map(coord => coord.trim());
+
+      navigation.navigate('DetailsScreen', {
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
+        ...item,
+        className: item.name // to show on map
+      });
+    }
 
     navigation.navigate('DetailsScreen', {
-      latitude: parseFloat(latitude),
-      longitude: parseFloat(longitude),
       ...item,
       className: item.name // to show on map
     });
-
   };
 
   function DetailCard({ item }) {

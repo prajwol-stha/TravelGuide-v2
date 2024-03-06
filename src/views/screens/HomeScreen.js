@@ -32,7 +32,7 @@ const categoryIcons = [
 const HomeScreen = ({ navigation }) => {
 
 	const handleCategoryPress = (iconName) => {
-		console.log(`Pressed category ${iconName}`);
+		// console.log(`Pressed category ${iconName}`);
 		openMap({ query: iconName == "wc" ? "Toilet" : iconName, provider: 'google' });
 	};
 
@@ -53,7 +53,7 @@ const HomeScreen = ({ navigation }) => {
 	const RecommendedCard = ({ place }) => {
 		return (
 			<TouchableOpacity activeOpacity={0.8}
-				onPress={() => navigation.navigate('DetailsScreenCuisine', place)}>
+				onPress={() => navigation.navigate('DetailsScreen', {...place})}>
 
 				<ImageBackground style={style.rmCardImage} source={place.image}>
 					<Text
@@ -61,9 +61,13 @@ const HomeScreen = ({ navigation }) => {
 							color: COLORS.white,
 							fontSize: 22,
 							fontWeight: 'bold',
-							marginTop: 10,
+							backgroundColor: "rgba(0,0,0,0.5)",
+							textAlign: 'center',
+							position:'absolute',
+							padding: 5,
+							right:0,
 						}}>
-						{place.name}
+						{place.className}
 					</Text>
 					<View
 						style={{
@@ -334,12 +338,17 @@ const styles = StyleSheet.create({
 	},
 	nameWh: {
 		position: 'absolute',
-		bottom: 10,
+		bottom: 0,
+		paddingBottom:5,
+		bottom: 0,
+		paddingBottom:5,
 		fontSize: 20,
 		fontWeight: 'bold',
 		textAlign: 'center',
 		color: 'white',
 		width: '100%',
+		backgroundColor: "rgba(0,0,0,0.5)",
+		backgroundColor: "rgba(0,0,0,0.5)",
 	},
 });
 
